@@ -204,6 +204,14 @@ public abstract class DiscoveryNodeRole implements Comparable<DiscoveryNodeRole>
 
     };
 
+    public static final DiscoveryNodeRole ML_ROLE = new DiscoveryNodeRole("ml", "l") {
+        @Override
+        public Setting<Boolean> legacySetting() {
+            // copy the setting here so we can mark it private in org.opensearch.node.Node
+            return Setting.boolSetting("node.ml", false, Property.Deprecated, Property.NodeScope);
+        }
+    };
+
     public static final DiscoveryNodeRole REMOTE_CLUSTER_CLIENT_ROLE = new DiscoveryNodeRole("remote_cluster_client", "r") {
 
         @Override
@@ -223,7 +231,7 @@ public abstract class DiscoveryNodeRole implements Comparable<DiscoveryNodeRole>
      * The built-in node roles.
      */
     public static SortedSet<DiscoveryNodeRole> BUILT_IN_ROLES = Collections.unmodifiableSortedSet(
-        new TreeSet<>(Arrays.asList(DATA_ROLE, INGEST_ROLE, MASTER_ROLE, REMOTE_CLUSTER_CLIENT_ROLE))
+        new TreeSet<>(Arrays.asList(DATA_ROLE, INGEST_ROLE, MASTER_ROLE, REMOTE_CLUSTER_CLIENT_ROLE, ML_ROLE))
     );
 
     /**
