@@ -565,10 +565,15 @@ public class DiscoveryNode implements Writeable, ToXContentFragment {
     private static Map<String, DiscoveryNodeRole> roleMap = rolesToMap(DiscoveryNodeRole.BUILT_IN_ROLES.stream());
 
     public static DiscoveryNodeRole getRoleFromRoleName(final String roleName) {
-        if (roleMap.containsKey(roleName) == false) {
-            throw new IllegalArgumentException("unknown role [" + roleName + "]");
+        if (roleMap.containsKey(roleName)) {
+            return roleMap.get(roleName);
         }
-        return roleMap.get(roleName);
+        return new DiscoveryNodeRole(false, roleName, roleName, false) {
+            @Override
+            public Setting<Boolean> legacySetting() {
+                return null;
+            }
+        };
     }
 
     public static Set<DiscoveryNodeRole> getPossibleRoles() {
