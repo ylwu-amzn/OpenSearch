@@ -77,6 +77,7 @@ import org.opensearch.search.suggest.completion.CompletionStats;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
@@ -192,6 +193,10 @@ public class RestNodesAction extends AbstractCatAction {
         table.addCell(
             "node.role",
             "alias:r,role,nodeRole;desc:m:master eligible node, d:data node, i:ingest node, -:coordinating node only"
+        );
+        table.addCell(
+            "node.custom_role",
+            "alias:cr,customRole;desc:custom roles"
         );
         table.addCell("master", "alias:m;desc:*:current master");
         table.addCell("name", "alias:n;desc:node name");
@@ -416,12 +421,17 @@ public class RestNodesAction extends AbstractCatAction {
             table.addCell(jvmStats == null ? null : jvmStats.getUptime());
 
             final String roles;
+            final String customRoles;
             if (node.getRoles().isEmpty()) {
                 roles = "-";
+                customRoles = "-";
             } else {
-                roles = node.getRoles().stream().map(DiscoveryNodeRole::roleNameAbbreviation).sorted().collect(Collectors.joining());
+                Map<Boolean, List<DiscoveryNodeRole>> roleGroups = node.getRoles().stream().collect(Collectors.partitioningBy(DiscoveryNodeRole::isKnownRole));
+                roles = roleGroups.get(true).size() > 0? roleGroups.get(true).stream().map(DiscoveryNodeRole::roleNameAbbreviation).sorted().collect(Collectors.joining()) : "-";
+                customRoles = roleGroups.get(false).size() > 0? roleGroups.get(false).stream().map(DiscoveryNodeRole::roleNameAbbreviation).sorted().collect(Collectors.joining(":")) : "-";
             }
             table.addCell(roles);
+            table.addCell(customRoles);
             table.addCell(masterId == null ? "x" : masterId.equals(node.getId()) ? "*" : "-");
             table.addCell(node.getName());
 
