@@ -195,8 +195,8 @@ public class RestNodesAction extends AbstractCatAction {
             "alias:r,role,nodeRole;desc:m:master eligible node, d:data node, i:ingest node, -:coordinating node only"
         );
         table.addCell(
-            "node.custom_role",
-            "alias:cr,customRole;desc:custom roles"
+            "node.extra_role",
+            "alias:er,extraRole;desc:extra roles"
         );
         table.addCell("master", "alias:m;desc:*:current master");
         table.addCell("name", "alias:n;desc:node name");
