@@ -77,6 +77,7 @@ import org.opensearch.search.suggest.completion.CompletionStats;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
@@ -190,9 +191,14 @@ public class RestNodesAction extends AbstractCatAction {
         table.addCell("load_5m", "alias:l;text-align:right;desc:5m load avg");
         table.addCell("load_15m", "alias:l;text-align:right;desc:15m load avg");
         table.addCell("uptime", "default:false;alias:u;text-align:right;desc:node uptime");
+        // TODO: Deprecate "node.role", use "node.roles" which shows full node role names
         table.addCell(
-            "node.role",
+            "node.role(deprecated)",
             "alias:r,role,nodeRole;desc:m:master eligible node, d:data node, i:ingest node, -:coordinating node only"
+        );
+        table.addCell(
+            "node.roles",
+            "alias:rs,all roles;desc: -:coordinating node only"
         );
         // TODO: Remove the header alias 'master', after removing MASTER_ROLE. It's added for compatibility when using parameter 'h=master'.
         table.addCell("cluster_manager", "alias:cm,m,master;desc:*:current cluster manager");
@@ -418,12 +424,17 @@ public class RestNodesAction extends AbstractCatAction {
             table.addCell(jvmStats == null ? null : jvmStats.getUptime());
 
             final String roles;
+            final String allRoles;
             if (node.getRoles().isEmpty()) {
                 roles = "-";
+                allRoles = "-";
             } else {
-                roles = node.getRoles().stream().map(DiscoveryNodeRole::roleNameAbbreviation).sorted().collect(Collectors.joining());
+                List<DiscoveryNodeRole> knownNodeRoles = node.getRoles().stream().filter(DiscoveryNodeRole::isKnownRole).collect(Collectors.toList());
+                roles = knownNodeRoles.size() > 0 ? knownNodeRoles.stream().map(DiscoveryNodeRole::roleNameAbbreviation).sorted().collect(Collectors.joining()) : "-";
+                allRoles = node.getRoles().stream().map(DiscoveryNodeRole::roleName).sorted().collect(Collectors.joining(":"));
             }
             table.addCell(roles);
+            table.addCell(allRoles);
             table.addCell(masterId == null ? "x" : masterId.equals(node.getId()) ? "*" : "-");
             table.addCell(node.getName());
 

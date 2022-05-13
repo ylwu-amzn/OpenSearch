@@ -120,6 +120,9 @@ public abstract class DiscoveryNodeRole implements Comparable<DiscoveryNodeRole>
     ) {
         this.isKnownRole = isKnownRole;
         this.roleName = Objects.requireNonNull(roleName);
+        if (roleName.contains(":")) {
+            throw new IllegalArgumentException("can't include \":\" in role name, but got [" + roleName + "]");
+        }
         this.roleNameAbbreviation = Objects.requireNonNull(roleNameAbbreviation);
         this.canContainData = canContainData;
     }
