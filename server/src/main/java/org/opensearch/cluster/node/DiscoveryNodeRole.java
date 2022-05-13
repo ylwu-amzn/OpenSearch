@@ -56,7 +56,9 @@ public abstract class DiscoveryNodeRole implements Comparable<DiscoveryNodeRole>
     private static final DeprecationLogger deprecationLogger = DeprecationLogger.getLogger(DiscoveryNodeRole.class);
     public static final String MASTER_ROLE_DEPRECATION_MESSAGE =
         "Assigning [master] role in setting [node.roles] is deprecated. To promote inclusive language, please use [cluster_manager] role instead.";
-
+    public static final String NODE_ROLE_COLUMN_DEPRECATION_MESSAGE =
+        "[node.role] column is deprecated, now it just show role abbreviation for known node roles: m:master/cluster_manager, d:data, i:ingest "
+            + "and r:remote_cluster_client. Please use [node.roles] instead, which will show full role name for all node roles.";
     private final String roleName;
 
     /**
@@ -120,9 +122,6 @@ public abstract class DiscoveryNodeRole implements Comparable<DiscoveryNodeRole>
     ) {
         this.isKnownRole = isKnownRole;
         this.roleName = Objects.requireNonNull(roleName);
-        if (roleName.contains(":")) {
-            throw new IllegalArgumentException("can't include \":\" in role name, but got [" + roleName + "]");
-        }
         this.roleNameAbbreviation = Objects.requireNonNull(roleNameAbbreviation);
         this.canContainData = canContainData;
     }
@@ -300,7 +299,7 @@ public abstract class DiscoveryNodeRole implements Comparable<DiscoveryNodeRole>
 
     /**
      * Represents an unknown role. This can occur if a newer version adds a role that an older version does not know about, or a newer
-     * version removes a role that an older version knows about.
+     * version removes a role that an older version knows about. Or some custom role for extension function provided by plugins.
      */
     static class UnknownRole extends DiscoveryNodeRole {
 
