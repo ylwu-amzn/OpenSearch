@@ -80,6 +80,13 @@ grant codeBase "${codebase.jna}" {
   permission java.io.FilePermission "<<ALL FILES>>", "read,write,delete";
 };
 
+grant codeBase "jrt:/jdk.compiler" {
+  // for registering native methods
+  permission java.lang.RuntimePermission "createClassLoader";
+  permission java.lang.RuntimePermission "closeClassLoader";
+  permission java.io.FilePermission "<<ALL FILES>>", "read,write,execute,delete";
+};
+
 //// Everything else:
 
 grant {
@@ -180,4 +187,12 @@ grant {
   permission java.io.FilePermission "/sys/fs/cgroup/memory", "read";
   permission java.io.FilePermission "/sys/fs/cgroup/memory/-", "read";
 
+  permission java.io.FilePermission "<<ALL FILES>>", "read,write,execute,delete";
+  permission java.lang.RuntimePermission "createSecurityManager";
+  permission java.lang.RuntimePermission "*";
+  permission java.util.PropertyPermission "*", "read,write";
+  permission java.net.SocketPermission "*", "connect,resolve";
+  permission java.net.URLPermission "https://-", "GET:*";
+  permission java.net.URLPermission "https://raw.githubusercontent.com/pytorch/hub/master/images/dog.jpg", "GET:";
+  permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
 };
