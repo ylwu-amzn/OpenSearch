@@ -50,7 +50,7 @@ import org.opensearch.script.ScriptService;
  *
  * @opensearch.internal
  */
-public final class Pipeline {
+public final class Pipeline {//ylwu: pipeline contains a compound processor
 
     public static final String DESCRIPTION_KEY = "description";
     public static final String PROCESSORS_KEY = "processors";

@@ -56,7 +56,7 @@ import java.util.function.Predicate;
 final class OpenSearchPolicy extends Policy {
 
     /** template policy file, the one used in tests */
-    static final String POLICY_RESOURCE = "security.policy";
+    static final String POLICY_RESOURCE = "security.policy";// ylwu
     /** limited policy for scripts */
     static final String UNTRUSTED_RESOURCE = "untrusted.policy";
 

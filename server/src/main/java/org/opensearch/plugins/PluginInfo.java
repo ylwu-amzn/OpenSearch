@@ -62,7 +62,7 @@ import java.util.stream.Collectors;
 public class PluginInfo implements Writeable, ToXContentObject {
 
     public static final String OPENSEARCH_PLUGIN_PROPERTIES = "plugin-descriptor.properties";
-    public static final String OPENSEARCH_PLUGIN_POLICY = "plugin-security.policy";
+    public static final String OPENSEARCH_PLUGIN_POLICY = "plugin-security.policy";//ylwu plugin security policy file
 
     private final String name;
     private final String description;

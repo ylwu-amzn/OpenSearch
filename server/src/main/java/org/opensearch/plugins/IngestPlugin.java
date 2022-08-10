@@ -42,7 +42,7 @@ import org.opensearch.ingest.Processor;
  *
  * @opensearch.api
  */
-public interface IngestPlugin {
+public interface IngestPlugin {// ylwu, people can ingest doc via this IngestPipeline
 
     /**
      * Returns additional ingest processor types added by this plugin.
