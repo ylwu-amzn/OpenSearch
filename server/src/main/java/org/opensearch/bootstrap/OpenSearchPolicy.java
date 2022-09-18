@@ -74,7 +74,7 @@ final class OpenSearchPolicy extends Policy {
         boolean filterBadDefaults,
         PermissionCollection dataPathPermission
     ) {
-        this.template = Security.readPolicy(getClass().getResource(POLICY_RESOURCE), codebases);
+        this.template = Security.readPolicy(getClass().getResource(POLICY_RESOURCE), codebases);//
         this.dataPathPermission = dataPathPermission;
         this.untrusted = Security.readPolicy(getClass().getResource(UNTRUSTED_RESOURCE), Collections.emptyMap());
         if (filterBadDefaults) {

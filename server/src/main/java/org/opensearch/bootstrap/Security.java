@@ -270,7 +270,7 @@ final class Security {
     }
 
     /** returns dynamic Permissions to configured paths and bind ports */
-    static Permissions createPermissions(Environment environment) throws IOException {
+    static Permissions createPermissions(Environment environment) throws IOException { // where is created policy used ?
         Permissions policy = new Permissions();
         addClasspathPermissions(policy);
         addFilePermissions(policy, environment);
@@ -310,7 +310,7 @@ final class Security {
     /**
      * Adds access to all configurable paths.
      */
-    static void addFilePermissions(Permissions policy, Environment environment) throws IOException {
+    static void addFilePermissions(Permissions policy, Environment environment) throws IOException {// what's policy
         // read-only dirs
         addDirectoryPath(policy, Environment.PATH_HOME_SETTING.getKey(), environment.binFile(), "read,readlink", false);
         addDirectoryPath(policy, Environment.PATH_HOME_SETTING.getKey(), environment.libFile(), "read,readlink", false);

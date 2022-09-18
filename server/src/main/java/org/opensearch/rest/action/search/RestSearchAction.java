@@ -102,7 +102,7 @@ public class RestSearchAction extends BaseRestHandler {
     public List<Route> routes() {
         return unmodifiableList(
             asList(
-                new Route(GET, "/_search"),
+                new Route(GET, "/_search"),//ylwlu
                 new Route(POST, "/_search"),
                 new Route(GET, "/{index}/_search"),
                 new Route(POST, "/{index}/_search")

@@ -66,7 +66,7 @@ final class FetchSearchPhase extends SearchPhase {
     private final BiFunction<InternalSearchResponse, AtomicArray<SearchPhaseResult>, SearchPhase> nextPhaseFactory;
     private final SearchPhaseContext context;
     private final Logger logger;
-    private final SearchPhaseResults<SearchPhaseResult> resultConsumer;
+    private final SearchPhaseResults<SearchPhaseResult> resultConsumer; // ylwu
     private final SearchProgressListener progressListener;
     private final AggregatedDfs aggregatedDfs;
 
@@ -195,7 +195,7 @@ final class FetchSearchPhase extends SearchPhase {
                             queryResult.getShardSearchRequest(),
                             queryResult.getRescoreDocIds()
                         );
-                        executeFetch(i, searchShardTarget, counter, fetchSearchRequest, queryResult.queryResult(), connection);
+                        executeFetch(i, searchShardTarget, counter, fetchSearchRequest, queryResult.queryResult(), connection);//ylwu
                     }
                 }
             }
@@ -231,7 +231,7 @@ final class FetchSearchPhase extends SearchPhase {
         final QuerySearchResult querySearchResult,
         final Transport.Connection connection
     ) {
-        context.getSearchTransport()
+        context.getSearchTransport() //
             .sendExecuteFetch(
                 connection,
                 fetchSearchRequest,

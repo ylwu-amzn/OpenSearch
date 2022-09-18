@@ -81,7 +81,7 @@ public class FilePermissionUtils {
      * @param recursiveAccessOnly   indicates if the permission should provide recursive access to files underneath
      */
     @SuppressForbidden(reason = "only place where creating Java-9 compatible FilePermission objects is possible")
-    public static void addDirectoryPath(
+    public static void addDirectoryPath( //why
         Permissions policy,
         String configurationName,
         Path path,
