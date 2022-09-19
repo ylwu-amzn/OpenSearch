@@ -111,7 +111,7 @@ public class QueryRewriteContext {
      * from an index.
      */
     public void registerAsyncAction(BiConsumer<Client, ActionListener<?>> asyncAction) {
-        asyncActions.add(asyncAction);
+        asyncActions.add(asyncAction);// register async action
     }
 
     /**
@@ -126,7 +126,7 @@ public class QueryRewriteContext {
      * <code>null</code>. The list of registered actions is cleared once this method returns.
      */
     public void executeAsyncActions(ActionListener listener) {
-        if (asyncActions.isEmpty()) {
+        if (asyncActions.isEmpty()) {//ylwu: execute async actions?
             listener.onResponse(null);
         } else {
             CountDown countDown = new CountDown(asyncActions.size());

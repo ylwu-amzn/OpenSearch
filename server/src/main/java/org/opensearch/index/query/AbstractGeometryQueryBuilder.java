@@ -511,7 +511,7 @@ public abstract class AbstractGeometryQueryBuilder<QB extends AbstractGeometryQu
             return supplier.get() == null ? this : newShapeQueryBuilder(this.fieldName, supplier.get()).relation(relation);
         } else if (this.shape == null) {
             SetOnce<Geometry> supplier = new SetOnce<>();
-            queryRewriteContext.registerAsyncAction((client, listener) -> {
+            queryRewriteContext.registerAsyncAction((client, listener) -> {//ylwu: Good: this is to register async action
                 GetRequest getRequest = new GetRequest(indexedShapeIndex, indexedShapeId);
                 getRequest.routing(indexedShapeRouting);
                 fetch(client, getRequest, indexedShapePath, ActionListener.wrap(builder -> {

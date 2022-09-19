@@ -608,7 +608,7 @@ public class ActionModule extends AbstractModule {
         actions.register(UpdateAction.INSTANCE, TransportUpdateAction.class);
         actions.register(MultiGetAction.INSTANCE, TransportMultiGetAction.class, TransportShardMultiGetAction.class);
         actions.register(BulkAction.INSTANCE, TransportBulkAction.class, TransportShardBulkAction.class);
-        actions.register(SearchAction.INSTANCE, TransportSearchAction.class);
+        actions.register(SearchAction.INSTANCE, TransportSearchAction.class);//ylwu: register SearchAction
         actions.register(SearchScrollAction.INSTANCE, TransportSearchScrollAction.class);
         actions.register(MultiSearchAction.INSTANCE, TransportMultiSearchAction.class);
         actions.register(ExplainAction.INSTANCE, TransportExplainAction.class);

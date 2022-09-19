@@ -132,7 +132,7 @@ public class RestSearchAction extends BaseRestHandler {
 
         return channel -> {
             RestCancellableNodeClient cancelClient = new RestCancellableNodeClient(client, request.getHttpChannel());
-            cancelClient.execute(SearchAction.INSTANCE, searchRequest, new RestStatusToXContentListener<>(channel));
+            cancelClient.execute(SearchAction.INSTANCE, searchRequest, new RestStatusToXContentListener<>(channel));//ylwu:
         };
     }
 
@@ -220,7 +220,7 @@ public class RestSearchAction extends BaseRestHandler {
      */
     private static void parseSearchSource(final SearchSourceBuilder searchSourceBuilder, RestRequest request, IntConsumer setSize) {
         QueryBuilder queryBuilder = RestActions.urlParamsToQueryBuilder(request);
-        if (queryBuilder != null) {
+        if (queryBuilder != null) {//ylwu: this step will parse QueryBuilder, NLPQueryBuilder will be parsed, should we call ML model in this step?
             searchSourceBuilder.query(queryBuilder);
         }
 

@@ -52,7 +52,7 @@ public interface Rewriteable<T> {
      * objects will be the same instance as this if no changes during the
      * rewrite were applied.
      */
-    T rewrite(QueryRewriteContext ctx) throws IOException;
+    T rewrite(QueryRewriteContext ctx) throws IOException;//ylwu: rewrite original query
 
     /**
      * Rewrites the given {@link Rewriteable} into its primitive form. Rewriteables that for instance fetch resources from remote hosts or
@@ -126,9 +126,9 @@ public interface Rewriteable<T> {
                 if (context.hasAsyncActions()) {
                     T finalBuilder = builder;
                     final int currentIterationNumber = iteration;
-                    context.executeAsyncActions(
+                    context.executeAsyncActions(//ylwu: Good, execute async actions
                         ActionListener.wrap(
-                            n -> rewriteAndFetch(finalBuilder, context, rewriteResponse, currentIterationNumber),
+                            n -> rewriteAndFetch(finalBuilder, context, rewriteResponse, currentIterationNumber),//ylwu: rewrite with async way
                             rewriteResponse::onFailure
                         )
                     );
