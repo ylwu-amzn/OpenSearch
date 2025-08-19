@@ -60,7 +60,7 @@ class FlightTransportChannel extends TcpTransportChannel {
     }
 
     @Override
-    public void sendResponseBatch(TransportResponse response) {
+    public void sendResponseBatch(TransportResponse response) {//
         if (!streamOpen.get()) {
             throw new StreamException(StreamErrorCode.UNAVAILABLE, "Stream is closed for requestId [" + requestId + "]");
         }

@@ -51,12 +51,14 @@ public class StreamTransportExampleIT extends OpenSearchIntegTestCase {
             CountDownLatch latch = new CountDownLatch(1);
             StreamTransportResponseHandler<StreamDataResponse> handler = new StreamTransportResponseHandler<StreamDataResponse>() {
                 @Override
-                public void handleStreamResponse(StreamTransportResponse<StreamDataResponse> streamResponse) {
+                public void handleStreamResponse(StreamTransportResponse<StreamDataResponse> streamResponse) {//
                     try {
                         StreamDataResponse response;
                         while ((response = streamResponse.nextResponse()) != null) {
                             responses.add(response);
+                            // we should send response to REST client side.
                         }
+                        // Any limit for the long living tcp connection: no limit on this.
                         streamResponse.close();
                         latch.countDown();
                     } catch (Exception e) {
@@ -82,7 +84,7 @@ public class StreamTransportExampleIT extends OpenSearchIntegTestCase {
             };
 
             StreamDataRequest request = new StreamDataRequest(3, 1);
-            streamTransportService.sendRequest(
+            streamTransportService.sendRequest(//
                 node,
                 StreamDataAction.NAME,
                 request,

@@ -67,7 +67,7 @@ public class StreamSearchTransportService extends SearchTransportService {
                     request,
                     false,
                     (SearchShardTask) task,
-                    new StreamSearchChannelListener<>(channel, QUERY_ACTION_NAME, request),
+                    new StreamSearchChannelListener<>(channel, QUERY_ACTION_NAME, request), // we should build our stream action listenr
                     ThreadPool.Names.STREAM_SEARCH,
                     true
                 );

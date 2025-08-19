@@ -100,7 +100,7 @@ class FlightOutboundHandler extends ProtocolOutboundHandler {
         final TransportResponse response,
         final boolean compress,
         final boolean isHandshake
-    ) throws IOException {
+    ) throws IOException {//
         // TODO add support for compression
         if (!(channel instanceof FlightServerChannel flightChannel)) {
             throw new IllegalStateException("Expected FlightServerChannel, got " + channel.getClass().getName());

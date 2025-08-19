@@ -87,7 +87,7 @@ public interface TransportResponseHandler<T extends TransportResponse> extends W
      * @param response the streaming response, which must be closed by the handler
      */
     @ExperimentalApi
-    default void handleStreamResponse(StreamTransportResponse<T> response) {
+    default void handleStreamResponse(StreamTransportResponse<T> response) { //
         throw new UnsupportedOperationException("Streaming responses not supported by this handler");
     }
 

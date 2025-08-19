@@ -40,7 +40,7 @@ public class TransportStreamDataAction extends TransportAction<StreamDataRequest
         super(StreamDataAction.NAME, actionFilters, streamTransportService.getTaskManager());
 
         // Register handler for streaming requests
-        streamTransportService.registerRequestHandler(
+        streamTransportService.registerRequestHandler( // critical part
             StreamDataAction.NAME,
             ThreadPool.Names.GENERIC,
             StreamDataRequest::new,
@@ -49,6 +49,7 @@ public class TransportStreamDataAction extends TransportAction<StreamDataRequest
     }
 
     @Override
+ //                doExecute(Task task, ActionRequest request, ActionListener<MLTaskResponse> listener) {
     protected void doExecute(Task task, StreamDataRequest request, ActionListener<StreamDataResponse> listener) {
         listener.onFailure(new UnsupportedOperationException("Use StreamTransportService for streaming requests"));
     }
@@ -62,7 +63,7 @@ public class TransportStreamDataAction extends TransportAction<StreamDataRequest
             for (int i = 1; i <= request.getCount(); i++) {
                 StreamDataResponse response = new StreamDataResponse("Stream data item " + i, i, i == request.getCount());
 
-                channel.sendResponseBatch(response);
+                channel.sendResponseBatch(response); //should use this one rather than listenr.onResponse()
 
                 if (i < request.getCount() && request.getDelayMs() > 0) {
                     Thread.sleep(request.getDelayMs());

@@ -47,7 +47,7 @@ public class StreamSearchChannelListener<Response extends TransportResponse, Req
      */
     public void onStreamResponse(Response response, boolean isLastBatch) {
         assert response != null;
-        channel.sendResponseBatch(response);
+        channel.sendResponseBatch(response); // implement our action listener
         if (isLastBatch) {
             channel.completeStream();
         }

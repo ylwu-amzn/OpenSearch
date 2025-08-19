@@ -1817,7 +1817,7 @@ public class TransportService extends AbstractLifecycleComponent
 
                     @Override
                     public void handleStreamResponse(StreamTransportResponse<T> response) {
-                        handler.handleStreamResponse(response);
+                        handler.handleStreamResponse(response); // Check Class StreamTransportExampleIT
                     }
 
                     @Override

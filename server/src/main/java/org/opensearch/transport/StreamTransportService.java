@@ -63,7 +63,7 @@ public class StreamTransportService extends TransportService {
             localNodeFactory,
             // it's a single channel profile and let underlying client handle parallelism by creating multiple channels as needed
             new ClusterConnectionManager(
-                ConnectionProfile.buildSingleChannelProfile(
+                ConnectionProfile.buildSingleChannelProfile( //
                     TransportRequestOptions.Type.STREAM,
                     PROBE_CONNECT_TIMEOUT_SETTING.get(settings),
                     PROBE_HANDSHAKE_TIMEOUT_SETTING.get(settings),
@@ -84,7 +84,7 @@ public class StreamTransportService extends TransportService {
     }
 
     @Override
-    public <T extends TransportResponse> void sendChildRequest(
+    public <T extends TransportResponse> void sendChildRequest(//
         final Transport.Connection connection,
         final String action,
         final TransportRequest request,

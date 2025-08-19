@@ -501,7 +501,7 @@ public abstract class AbstractClient implements Client {
         doExecute(action, request, listener);
     }
 
-    protected abstract <Request extends ActionRequest, Response extends ActionResponse> void doExecute(
+    protected abstract <Request extends ActionRequest, Response extends ActionResponse> void doExecute(// Jing's PoC Use this
         ActionType<Response> action,
         Request request,
         ActionListener<Response> listener
